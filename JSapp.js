@@ -9,14 +9,14 @@ const clearButton = document.querySelector("#clear-todos");
 
 eventListeners();
 
-function eventListeners(){
+const eventListeners = () => {
     form.addEventListener("submit",addToDo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
     secondCardBody.addEventListener("click",deleteTodo);
     filter.addEventListener("keyup",filterTodos);
     clearButton.addEventListener("click",clearAlltodos);
 }
-function clearAlltodos(e){
+const clearAlltodos = e => {
 
     //Arayüzden todoları temizleme
 
@@ -29,7 +29,7 @@ function clearAlltodos(e){
         
     }
 }
-function filterTodos(e){
+const filterTodos = e => {
     const filterValue = e.target.value.toLowerCase();
     const listItems = document.querySelectorAll(".list-group-item");
 
@@ -42,14 +42,14 @@ function filterTodos(e){
         }
     });
 }
-function deleteTodo(e){
+const deleteTodo = e => {
     if(e.target.className === "fa fa-remove"){
         e.target.parentElement.parentElement.remove();
         deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
         showAlert("success","Todo başarıyla silindi");
     }
 }
-function deleteTodoFromStorage(deleteTodo){
+const deleteTodoFromStorage = deleteTodo => {
     let todos = getTodosFromStorage();
     todos.forEach(function(todo,index){
         if(todo === deleteTodo){
@@ -58,13 +58,13 @@ function deleteTodoFromStorage(deleteTodo){
     });
     localStorage.setItem("todos",JSON.stringify(todos));
 }
-function loadAllTodosToUI(){
+const loadAllTodosToUI = () => {
     let todos = getTodosFromStorage();
     todos.forEach(function(todo){
         addToDoToUI(todo);
     });
 }
-function addToDo(e){
+const addToDo = e => {
     const newToDo = todoInput.value.trim();
     if(newToDo === ""){
                 /*    
@@ -82,7 +82,7 @@ function addToDo(e){
     
     e.preventDefault();
 }
-function getTodosFromStorage(){ // Storage dan todoları alacak
+const getTodosFromStorage = () => { // Storage dan todoları alacak
     let todos;
     if(localStorage.getItem("todos") === null){
         todos = [];
@@ -91,13 +91,13 @@ function getTodosFromStorage(){ // Storage dan todoları alacak
     }
     return todos;
 }
-function addTodotoStorage(newToDo){
+const addTodotoStorage = newToDo => {
     let todos = getTodosFromStorage();
 
     todos.push(newToDo);
     localStorage.setItem("todos",JSON.stringify("todos"));
 }
-function showAlert(type,message){
+const showAlert = (type,message) => {
     const alert = document.createElement("div");
     alert.className = "alert alert-${type}";
     alert.textContent = message;
@@ -109,7 +109,7 @@ function showAlert(type,message){
 
    
 }
-function addToDoToUI(newToDo){ //String değerini list item olarak UI ya eklenecek
+const addToDoToUI = newToDo => { //String değerini list item olarak UI ya eklenecek
                     /*
                         <li class="list-group-item d-flex justify-content-between">
                             Todo 1
